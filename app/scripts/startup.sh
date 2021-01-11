@@ -7,7 +7,7 @@ pip install -r /app/requirements.txt --no-cache-dir
 if [ -z "$@" ]
 then
     echo "Run App"
-    flask run --host=0.0.0.0 --port=$PORT
+    flask run --host=$HOST --port=$PORT
 else
     echo "Executeing \$@ command: $@"
     exec $@
