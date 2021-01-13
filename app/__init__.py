@@ -11,6 +11,6 @@ def create_app(config=None):
 
 
 def register_views(app):
-    from app.src.modules.health.health_view import HealthView
-    
+    from app.modules.health.health_view import HealthView
+
     HealthView.register(app)
