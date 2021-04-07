@@ -22,14 +22,18 @@ COPY . /app
 RUN apk add \
     curl
 
-# Fixed permissions, create exec:exec and dev:dev
-RUN sed -i '/999/d;' /etc/group
-RUN addgroup -S -g 999 exec && adduser -u 999 -s /sbin/nologin -SDHG exec exec
-RUN adduser -DH dev && adduser exec dev
+# Create user & group; exec:exec and dev:dev
+RUN sed -i '/999/d;' /etc/group && \
+    addgroup -S -g 999 exec && adduser -u 999 -s /sbin/nologin -SDHG exec exec && \
+    adduser -DH dev && adduser exec dev
+
+# Fixed permissions
 RUN chown -R exec:dev \
     /app \
     /usr/local/bin/ \
     /usr/local/lib/python3.7/
+
+# Read only file system
 RUN chmod -R a-w /etc
 
 VOLUME /app
