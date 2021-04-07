@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/sh
 
 CONTAINER_IP=$(ip addr | grep inet | tail -n1 | awk '{print $2}' |  cut -d'/' -f1)
 echo "Container IP: $CONTAINER_IP"

@@ -12,9 +12,7 @@ ENV FLASK_APP=$FLASK_APP
 ARG FLASK_ENV=development
 ENV FLASK_ENV=$FLASK_ENV
 
-ENV HOME=/app
 ENV PYTHONUNBUFFERED=True
-ENV PYTHONIOENCODING=UTF-8
 
 WORKDIR /app
 COPY . /app
@@ -34,12 +32,14 @@ RUN chown -R exec:dev \
     /usr/local/lib/python3.7/
 
 # Read only file system
-RUN chmod -R a-w /etc
+RUN chmod -R a-w \
+    /etc \
+    /var
 
 VOLUME /app
 EXPOSE ${PORT}
 
-HEALTHCHECK CMD curl -f http://localhost:${PORT}/ || exit 1
+HEALTHCHECK CMD curl -f http://${HOST}:${PORT}/ || exit 1
 
 USER exec:dev
 

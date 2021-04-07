@@ -1,14 +1,11 @@
-"""
-Run this file with uwsgi
-$ cd /srv/www/htdocs/config/services
-$ uwsgi --ini app.uwsgi.development.ini --http-socket /var/run/app.sock
-"""
 import os
 
 from app import create_app
 
+
 app = create_app()
 
+# Prevent circular dependency
 from app.modules.demo.hello import *
 
 # link: https://stackoverflow.com/questions/34615743/unable-to-load-configuration-from-uwsgi#answer-37175998
